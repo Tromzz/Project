@@ -163,5 +163,24 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	</div>
 </div>
 </div>
+<script>
+	// JavaScript code to dynamically position the lavalamp
+	const navItems = document.querySelectorAll('.nav li');
+
+	navItems.forEach((item, index) => {
+		item.addEventListener('mouseover', () => {
+			const lavalamp =document.getElementById('lavalamp');
+			const lavalampWidth = lavalamp.offsetWidth;
+			const offsetLeft = item.offsetLeft;
+			const itemWidth = item.offsetWidth;
+			const leftPos = offsetLeft + (itemWidth - lavalampWidth) /2;
+			lavalamp.style.left = '${leftPos}px';
+
+			//Add class 'active' to the hovered menu item
+			navItems.forEach(navItems => navItems.classList.remove('active'));
+			item.classList.add('active');
+		});
+	});
+</script>
 </body>
 </html>

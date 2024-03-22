@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-function LoginForm() {
+function LoginForm({ onLogin }) {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -16,7 +16,17 @@ const navigate = useNavigate();
     try {
       const response = await axios.post('http://localhost:3001/login', formData);
       console.log(response.data);
+      const { isAdmin } =response.data
+
+      //Call onLogin function passed from App.js
+      onLogin(isAdmin);
+
+      //Redirect based on role
+      if(isAdmin) {
       navigate('/add-product');
+      } else {
+        navigate('/vw_product');
+      }
       
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -35,7 +45,7 @@ const navigate = useNavigate();
         
         <div>
           <span><label>PASSWORD</label></span>
-          <span><input type="text" name="password" value={formData.password} onChange={handleChange} /></span>
+          <span><input type="password" name="password" value={formData.password} onChange={handleChange} /></span>
         </div>
         
         <div>

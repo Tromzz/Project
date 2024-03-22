@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function Header() {
+function Header({ isLoggedIn, isAdmin, onLogout }) {
   return (
     <div className="header-bg">
       <div className="wrap">
@@ -14,10 +14,18 @@ function Header() {
           <div className="hdr-nav">
             <ul className="nav">
               <li><Link to="/">Home</Link></li>
-              <li><Link to="/contact">Register</Link></li>
-              <li><Link to="/login">Login</Link></li>
-              {/* <li><Link to="/vw_product">View Product</Link></li>
-              <li><Link to="/add-product">Add Product</Link></li> */}
+              {isLoggedIn ? (
+                  <>
+                  {isAdmin && <li><Link to="/add-product">Add Product</Link></li>}
+                  <li><Link to="/vw_product">View Product</Link></li>
+                  <li><Link to="/logout" onClick={onLogout}>Logout</Link></li> 
+              </>       
+              ) : (
+                <>
+                <li><Link to="/contact">Register</Link></li>
+                <li><Link to="/login">Login</Link></li>
+              </>
+              )}
               <div id="lavalamp"></div>
             </ul>
           </div>

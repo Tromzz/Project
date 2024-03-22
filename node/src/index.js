@@ -53,11 +53,11 @@ app.use(async (req, res, next) => {
 
 
 app.post('/signup', async (req, res) => {
-  console.log("hi");
+
   try {
-    console.log("hlo");
     const { register } = await connectToDatabase();
-    const existingUser = await register.findOne({ email: req.body.email });
+    const existingUser = await register.findOne({ email: req.body.email , role: 'user' });
+    
 
     if (existingUser) {
       return res.status(400).json({ error: 'User with this email already registered' });
@@ -87,12 +87,14 @@ app.post('/login', async (req, res) => {
       return res.status(401).json({ error: 'Wrong email or password' });
     }
 
+    //res.json({ message: 'Login successful', isAdmin: user.role === 'admin'});
+
     if (user.role === 'admin') {
       console.log('admin');
       const role=user.role
       res.json({ message: 'Admin login successful', isAdmin: role ,user:user,redirectTo: '/add-product'});
     } else {
-      res.json({ message: 'User login successful', user:user});
+      res.json({ message: 'User login successful', user:user,redirectTo: '/vw_product'});
     }
   } catch (error) {
     console.error('Error during login:', error);
