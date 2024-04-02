@@ -43,8 +43,9 @@ function UViewProduct() {
                 {products.map((product, index) => (
                     <div key={index} style={{ margin: '10px', width: '300px' }}>
                         <div style={{ backgroundColor: '#f4f4f4', padding: '20px', borderRadius: '10px', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)' }}>
-                            <h3 style={{ color: '#333', marginBottom: '10px' }}> Title: {product.title}</h3>
-                            <p style={{ color: '#666', marginBottom: '10px' }}> Description: {product.description}</p>
+                            <h3 style={{ color: '#333', marginBottom: '10px' }}> Title: {product.title}</h3><br></br>
+                            <p style={{ color: '#666' }}> Description: {product.description}</p>
+                            <p style={{ color: '#666'}}> Cost : {product.cost}</p><br></br>
                             <div style={{ display: 'flex' }}>
                                <img src={`http://localhost:3001/uploads/${product.image}`} alt={product.title} style={{ maxWidth: '70%', height: '50%', borderRadius: '5px' }} />
                             </div>
