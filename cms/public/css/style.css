@@ -33,6 +33,7 @@ body{
 	margin: 0 auto;
 }
 .header-bg{
+	border-top: 4px ridge rgb(252, 92, 2);
 	background: url('../images/header-bg.png');
 }
 .header{
@@ -1172,7 +1173,7 @@ Supports Thumbs: true
 	padding-bottom:5px;
 	font-family :verdana, arial, helvetica, helve, sans-serif;
 }
-.contact-form input[type="text"],.contact-form textarea ,.contact-form input[type="password"]{
+.contact-form input[type="text"],.contact-form textarea ,.contact-form input[type="password"], .contact-form input[type="number"]{
     padding:8px;
 	display:block;
 	width:98%;

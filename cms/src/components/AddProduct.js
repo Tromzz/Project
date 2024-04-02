@@ -1,76 +1,79 @@
-// Frontend code to submit the form data
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-function AddProductForm() {
-    const [formData, setFormData] = useState({
-        title: '',
-        description: '',
-        link: '',
-        file: null,
-        image: null
-    });
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
+const ProductAdd = () => {
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [link, setLink] = useState('');
+  const [cost, setCost] = useState('');
+  const [image, setImage] = useState(null);
+  const [file, setFile] = useState(null);
+  const navigate = useNavigate();
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
+  };
 
-    const handleFileChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.files[0] });
-    };
-    const navigate = useNavigate();
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const formDataToSend = new FormData();
-            formDataToSend.append('title', formData.title);
-            formDataToSend.append('description', formData.description);
-            formDataToSend.append('link', formData.link);
-            formDataToSend.append('file', formData.file);
-            formDataToSend.append('image', formData.image);
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
 
-            await axios.post('http://localhost:3001/addProduct', formDataToSend, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-            alert('Product added successfully');
-            navigate('/vw_product');
-        } catch (error) {
-            console.error('Error adding product:', error);
-            alert('Error adding product');
-        }
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('link', link);
+    formData.append('cost', cost);
+    formData.append('image', image);
+    formData.append('file', file);
 
-    return (
-        <div className="contact-form">
-            
-            <h2>Add Product</h2>
-            <form onSubmit={handleSubmit} encType="multipart/form-data">
-                <div>
-                    <label>Title:</label>
-                    <input type="text" name="title" value={formData.title} onChange={handleChange} />
-                </div>
-                <div>
-                    <label>Description:</label>
-                    <input type="text" name="description" value={formData.description} onChange={handleChange} />
-                </div>
-                <div>
-                    <label>Link:</label>
-                    <input type="text" name="link" value={formData.link} onChange={handleChange} />
-                </div>
-                <div>
-                    <label>File:</label>
-                    <input type="file" name="file" onChange={handleFileChange} />
-                </div>
-                <div>
-                    <label>Image:</label>
-                    <input type="file" name="image" onChange={handleFileChange} />
-                </div>
-                <button type="submit">Submit</button>
-            </form>
+    try {
+        await axios.post('http://localhost:3001/addProduct', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          });
+          alert("Product Added Successfully")
+          navigate('vw_product');
+
+    } catch (error) {
+      console.error('Error adding product:', error);
+    }
+  };
+
+  return (
+    <div className="contact-form">
+      <h2>Add Product</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Title:</label>
+          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
         </div>
-    );
-}
+        <div>
+          <label>Description:</label>
+          <textarea value={description} onChange={(e) => setDescription(e.target.value)} />
+        </div>
+        <div>
+          <label>Link:</label>
+          <input type="text" value={link} onChange={(e) => setLink(e.target.value)} />
+        </div>
+        <div>
+          <label>Cost:</label>
+          <input type="number" value={cost} onChange={(e) => setCost(e.target.value)} />
+        </div>
+        <div>
+          <label>Image:</label>
+          <input type="file" onChange={handleImageChange} />
+        </div>
+        <div>
+          <label>File:</label>
+          <input type="file" onChange={handleFileChange} />
+        </div>
+        <button type="submit">Add Product</button>
+      </form>
+    </div>
+  );
+};
 
-export default AddProductForm;
+export default ProductAdd;

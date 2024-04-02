@@ -21,6 +21,7 @@ function RegisterForm() {
     try {
       const response = await axios.post('http://localhost:3001/signup', formData);
       console.log(response.data);
+      alert("Register Successful")
       navigate('/login'); 
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -35,26 +36,26 @@ function RegisterForm() {
       <form onSubmit={handleSubmit}>
         <div>
           <span><label>NAME</label></span>
-          <span><input type="text" name="name" value={formData.name} onChange={handleChange} /></span>
+          <span><input type="text" name="name" value={formData.name} onChange={handleChange} required/></span>
         </div>
         <div>
           <span><label>E-MAIL</label></span>
-          <span><input type="text" name="email" value={formData.email} onChange={handleChange} /></span>
+          <span><input type="text" name="email" value={formData.email} onChange={handleChange} required/></span>
         </div>
         <div>
           <span><label>PASSWORD</label></span>
-          <span><input type="password" name="password" value={formData.password} onChange={handleChange} /></span>
+          <span><input type="password" name="password" value={formData.password} onChange={handleChange} required /></span>
         </div>
         <div>
           <span><label>MOBILE</label></span>
-          <span><input type="text" name="mobile" value={formData.mobile} onChange={handleChange} /></span>
+          <span><input type="text" name="mobile" value={formData.mobile} onChange={handleChange} required maxlength="10"/></span>
         </div>
         <div>
           <span><label>ADDRESS</label></span>
-          <span><textarea name="subject" value={formData.subject} onChange={handleChange} /></span>
+          <span><textarea name="subject" value={formData.subject} onChange={handleChange} required/></span>
         </div>
         <div>
-          <span><input type="submit" value="Submit" style={{ color: 'white'}}/></span>
+          <span><input type="submit" value="Submit" /></span>
         </div>
       </form>
     </div>

@@ -21,11 +21,13 @@ async function connectToDatabase() {
       // Initialize collections
       const registerCollection = db.collection('register');
       const productCollection = db.collection('product');
+      const bookCollection = db.collection('book');
 
       // Store database instance
       dbInstance = {
         register: registerCollection,
-        product: productCollection
+        product: productCollection,
+        book: bookCollection,
       };
     }
 
